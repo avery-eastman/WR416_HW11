@@ -54,6 +54,7 @@ mich_snow <- ggplot(mich, aes(x = Date, y = Snow_depth_cm)) +
   ylab('Snow Depth (cm)') +
   coord_cartesian(xlim = c(xmin, xmax))
 mich_snow
+ggplotly(mich_snow)
 
 mill_snow <- ggplot(mill, aes(x = Date, y = Snow_depth_cm)) +
   geom_line() +
@@ -62,6 +63,7 @@ mill_snow <- ggplot(mill, aes(x = Date, y = Snow_depth_cm)) +
   ylab('Snow Depth (cm)') +
   coord_cartesian(xlim = c(xmin, xmax))
 mill_snow
+ggplotly(mill_snow)
 
 #Plot rain
 mich_rain <- ggplot(mich, aes(x = Date, y = rain)) +
@@ -71,6 +73,7 @@ mich_rain <- ggplot(mich, aes(x = Date, y = rain)) +
   ylab('Rain (mm)') +
   coord_cartesian(xlim = c(xmin, xmax))
 mich_rain
+ggplotly(mich_rain)
 
 mill_rain <- ggplot(mill, aes(x = Date, y = rain)) +
   geom_line() +
@@ -79,6 +82,7 @@ mill_rain <- ggplot(mill, aes(x = Date, y = rain)) +
   ylab('Rain (mm)') +
   coord_cartesian(xlim = c(xmin, xmax))
 mill_rain
+ggplotly(mill_rain)
 
 #combine soil VWC in one table and pivot
 vwc_mich_long <- mich |>
@@ -99,6 +103,7 @@ mich_soil <- ggplot(vwc_mich_long, aes(x = Date, y = VWC, color = Depth)) +
   ylab('VWC (cm)') +
   coord_cartesian(xlim = c(xmin, xmax))
 mich_soil
+ggplotly(mich_soil)
 
 mill_soil <- ggplot(vwc_mill_long, aes(x = Date, y = VWC, color = Depth)) +
   geom_line() +
@@ -107,6 +112,7 @@ mill_soil <- ggplot(vwc_mill_long, aes(x = Date, y = VWC, color = Depth)) +
   ylab('VWC (cm)') +
   coord_cartesian(xlim = c(xmin, xmax))
 mill_soil
+ggplotly(mill_soil)
 
 #Plot discharge
 mich_discharge <- ggplot(mich, aes(x = Date, y = discharge_ls)) +
@@ -116,6 +122,7 @@ mich_discharge <- ggplot(mich, aes(x = Date, y = discharge_ls)) +
   ylab('Discharge (L/s)') +
   coord_cartesian(xlim = c(xmin, xmax))
 mich_discharge
+ggplotly(mich_discharge)
 
 mill_discharge <- ggplot(mill, aes(x = Date, y = discharge_ls)) +
   geom_line() +
@@ -124,6 +131,7 @@ mill_discharge <- ggplot(mill, aes(x = Date, y = discharge_ls)) +
   ylab('Discharge (L/s)') +
   coord_cartesian(xlim = c(xmin, xmax))
 mill_discharge
+ggplotly(mill_discharge)
 
 #Put plots together into multipanel figure
 mich_TSplot <- ggarrange(mich_snow, mich_rain, mich_soil, mich_discharge, ncol = 2, nrow = 2, common.legend = TRUE, legend = "bottom")
@@ -131,6 +139,23 @@ mich_TSplot
 
 mill_TSplot <- ggarrange(mill_snow, mill_rain, mill_soil, mill_discharge, ncol = 2, nrow = 2, common.legend = TRUE, legend = "bottom")
 mill_TSplot
+
+#Cause I'm curious, plot temperature
+E <- ggplot(mich, aes(x = Date, y = Temperature_C)) +
+  geom_line() +
+  ggtitle('Temperature') +
+  xlab('Date') +
+  ylab('Temp (C)') +
+  coord_cartesian(xlim = c(xmin, xmax))
+ggplotly(E)
+
+R <- ggplot(mill, aes(x = Date, y = Temperature_C)) +
+  geom_line() +
+  ggtitle('Temperature') +
+  xlab('Date') +
+  ylab('Temp (C)') +
+  coord_cartesian(xlim = c(xmin, xmax))
+ggplotly(R)
 
 #Area-normalized discharge
 area_mich_km2 <- 4.03
